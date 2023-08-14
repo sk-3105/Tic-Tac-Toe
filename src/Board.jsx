@@ -1,12 +1,11 @@
 import { useContext, useEffect } from 'react'
-import GlobalContext from './context'
+import GlobalContext from './GlobalContext'
 import Square from './Square'
 
 function Board() {
 
   const { squares, setSquares, xTurn, setTurn, gameState, setGameState } = useContext(GlobalContext)
 
-  // Checking for win/draw after each move.
   useEffect(() => {
 
     if (!checkWin()) {

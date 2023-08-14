@@ -1,25 +1,17 @@
-import { useEffect, useState } from "react";
-import GlobalContext from './context'
+import { useContext, useEffect, useState } from "react"
+import GlobalContext from './GlobalContext'
 import Board from './Board'
 
 function App() {
 
-  const storedGameState = JSON.parse(localStorage.getItem('gameState'));
-  const initialSquares = storedGameState?.squares || Array(9).fill(null);
-  const initialXTurn = storedGameState?.xTurn || true;
-  const initialGameState = storedGameState?.gameState || {
-    running: true,
-    winner: null,
-    draw: false
-  }
-
-  const [squares, setSquares] = useState(initialSquares)
-  const [xTurn, setTurn] = useState(initialXTurn)
-  const [gameState, setGameState] = useState(initialGameState)
+  const { squares, setSquares, xTurn, setTurn, gameState, setGameState } = useContext(GlobalContext)
   const [message, setMessage] = useState('')
 
   useEffect(() => {
-    localStorage.setItem('gameState', JSON.stringify({ squares, xTurn, gameState }));
+    localStorage.setItem(
+      'gameState',
+      JSON.stringify({ squares, xTurn, gameState })
+    )
   }, [squares, xTurn, gameState]);
 
   function onReset() {
@@ -51,10 +43,7 @@ function App() {
 
       <h4>{message}</h4>
 
-      <GlobalContext.Provider value={
-        { squares, setSquares, xTurn, setTurn, gameState, setGameState }}>
-        <Board />
-      </GlobalContext.Provider>
+      <Board />
 
       <button onClick={onReset}>Reset Game</button>
     </main>
