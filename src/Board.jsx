@@ -7,12 +7,16 @@ function Board() {
   const { squares, setSquares, xTurn, setTurn, gameState, setGameState } = useContext(GlobalContext)
 
   useEffect(() => {
+    localStorage.setItem(
+      'gameState',
+      JSON.stringify({ squares, xTurn, gameState })
+    )
 
     if (!checkWin()) {
       checkDraw()
     }
 
-  }, [xTurn])
+  }, [squares, xTurn])
 
   function handleClick(e) {
 
@@ -63,8 +67,8 @@ function Board() {
   return (
     <div className='board' onClick={(e) => handleClick(e)}>
       {squares.map((sqr, index) => (
-        <Square value={sqr} key={index} index={index} />
-      ))}
+        <Square value={sqr} key={index} index={index} />)
+      )}
     </div>
   )
 }

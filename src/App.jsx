@@ -4,25 +4,8 @@ import Board from './Board'
 
 function App() {
 
-  const { squares, setSquares, xTurn, setTurn, gameState, setGameState } = useContext(GlobalContext)
+  const { xTurn, gameState, onReset } = useContext(GlobalContext)
   const [message, setMessage] = useState('')
-
-  useEffect(() => {
-    localStorage.setItem(
-      'gameState',
-      JSON.stringify({ squares, xTurn, gameState })
-    )
-  }, [squares, xTurn, gameState]);
-
-  function onReset() {
-    setSquares(squares.fill(null))
-    setTurn(true)
-    setGameState({
-      running: true,
-      winner: null,
-      draw: false
-    })
-  }
 
   useEffect(() => {
     if (gameState.running) {
@@ -37,17 +20,19 @@ function App() {
   return (
     <main>
 
-      <header>
-        <h1>Tic Tac Toe</h1>
-      </header>
+      <h1>Tic Tac Toe</h1>
 
       <h4>{message}</h4>
 
       <Board />
 
       <button onClick={onReset}>Reset Game</button>
+
     </main>
   )
+
+
+
 }
 
 export default App
