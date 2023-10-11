@@ -12,8 +12,10 @@ function App() {
       setMessage(`${xTurn ? 'X' : 'O'}'s turn`)
     } else if (gameState.winner) {
       setMessage(`${gameState.winner} Won!!`)
+      localStorage.removeItem('gameState')
     } else if (gameState.draw) {
       setMessage(`Game Draw`)
+      localStorage.removeItem('gameState')
     }
   }, [gameState, xTurn])
 
@@ -30,9 +32,6 @@ function App() {
 
     </main>
   )
-
-
-
 }
 
 export default App
